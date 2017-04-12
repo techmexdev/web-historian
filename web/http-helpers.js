@@ -13,7 +13,24 @@ exports.headers = {
 exports.serveAssets = function(res, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
-  // css, or anything that doesn't change often.)
+  // css, or anything that doesn't change often.
+  var fileName = path.join(__dirname, 'public/index.html');
+  var site = path.join(archive.paths.archivedSites, asset);
+  var content;
+  // console.log("ASSRT: *******************", asset);
+  if (asset === '/') {
+    content = fileName;
+    // console.log('CONTENT ===================',content);
+  } else {
+    content = site;
+  }
+
+  fs.readFile(content, function (err, data) {
+    if (err) {
+      throw err;
+    }
+    callback(data);
+  });
 };
 
 
