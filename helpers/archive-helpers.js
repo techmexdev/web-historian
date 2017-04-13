@@ -27,10 +27,6 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
-  // get sites.txt
-  // while reading separate by new line
-  // populate array
-  // perform callback on array
   var sites;
   var str = '';
   fs.readFile(exports.paths.list, function (err, data) {
@@ -66,8 +62,7 @@ exports.addUrlToList = function(url, callback) {
 
 exports.isUrlArchived = function(url, callback) {
   fs.readdir(exports.paths.archivedSites, (err, files) => {
-    console.log('FILES================', files);
-    if (files.indexOf(url) >= 0){
+    if (files.indexOf(url) >= 0) {
       callback(true);
     } else {
       callback(false);
@@ -78,7 +73,7 @@ exports.isUrlArchived = function(url, callback) {
 // then makes a file of url name and data is html
 exports.downloadUrls = function(urls, data) {
   urls.forEach(function(url) {
-    fs.writeFile(`${exports.paths.archivedSites}/${url}`, data, function(err) {
+    fs.writeFile(`${exports.paths.archivedSites}/${url}`, url, function(err) {
       if (err) {
         throw err;
       }
